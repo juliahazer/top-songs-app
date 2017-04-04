@@ -2,7 +2,8 @@ $(document).ready(function(){
 
 	var songsArr;
 	var count;
-	var totalCount;
+	var totalCount = 5;
+	var categoryName = "ALL";
 
 	//https://affiliate.itunes.apple.com/resources/documentation/genre-mapping/
 	var genreObj = {
@@ -20,46 +21,44 @@ $(document).ready(function(){
 		21: "Rock"
 	}
 
-	/*Lyrics
+	/*  Lyrics
 		Change Categories
 		Change Num Songs
 		Get rid object above?
-		GitHub / git 
 	*/
 
 	getPrintSongs(0);
-	$('#playlistControls').hide();
 
 	$('#navbarHome').on('click', function(e){
 		e.preventDefault();
-		$('tbody').empty();
-		$('#playlistControls').hide();
 		getPrintSongs(0);
 		$('ul.navbar-nav li').removeClass('active');
 		$('#all').parent().addClass('active');
-		$('#categoryHeading').text('all');
+		categoryName = 'ALL';
 	});
 
 	$('ul.navbar-nav li a').on('click', function(e){
 		e.preventDefault();
-		$('tbody').empty();
-		$('#playlistControls').hide();
 		var genreNum = Number($(e.target).attr('data-genre'));
-		var category = $(e.target).attr('id');
+		categoryName = $(e.target).attr('id');
 		getPrintSongs(genreNum);
 		$('ul.navbar-nav li').removeClass('active');
 		$(e.target).parent().addClass('active');
-		$('#categoryHeading').text(category);
 	});
 
 	function getPrintSongs(genreNum){
 		songsArr = []; 
-		totalCount = 10;
-		var urlItunes = "https://itunes.apple.com/us/rss/topsongs/limit=10/";
+		var urlItunes = "https://itunes.apple.com/us/rss/topsongs/limit=" + totalCount + "/";
 		if (genreNum !== 0){
 			urlItunes += "genre=" + genreNum + "/";
 		}
 		urlItunes += "json";
+
+		$('tbody').empty();
+		$('#playlistControls').hide();
+
+		$('#categoryHeading').text(categoryName);
+		$('#categorySubheading').text("Top " + totalCount + " Songs");
 
 		$.ajax({
 			method: "GET",
