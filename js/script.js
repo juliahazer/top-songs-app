@@ -70,6 +70,8 @@ $(document).ready(function(){
 		currentPlayingNum = null;
 		currentPlayingId = null;
 		playerState = 'Paused';
+		$('#playPausePlaylist span').removeClass('glyphicon-pause');
+		$('#playPausePlaylist span').addClass('glyphicon-play');
 
 		$('tbody').empty();
 		$('#playlistControls').hide();
