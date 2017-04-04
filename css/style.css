@@ -2,6 +2,9 @@
 	https://blackrockdigital.github.io/startbootstrap-agency/
 	https://github.com/BlackrockDigital/startbootstrap-agency/blob/master/css/agency.css
 */
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 
 .navbar-custom .navbar-brand {
 	font-size: 2em;
@@ -15,7 +18,6 @@
 }
 .navbar-custom .navbar-brand {
   color: #fed136;
-  font-family: "Kaushan Script", "Helvetica Neue", Helvetica, Arial, cursive;
 }
 .navbar-custom .navbar-brand:hover,
 .navbar-custom .navbar-brand:focus,
@@ -29,7 +31,6 @@
 .navbar-custom .navbar-toggle {
   background-color: #fed136;
   border-color: #fed136;
-  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   color: white;
   font-size: 12px;
@@ -40,7 +41,6 @@
   background-color: #fed136;
 }
 .navbar-custom .nav li a {
-  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 400;
   letter-spacing: 1px;
@@ -107,7 +107,7 @@
 
 /**********************************/
 .rank {
-	margin-top: 30px;
+	margin-top: 10px;
 	display: block;
 	border-radius: 100%;
 	width: 30px;
@@ -139,10 +139,24 @@ h3.section-subheading{
 }
 
 /**********************************/
-img {
+
+/*img {
 	height: 100px;
-}
+}*/
 
 .first {
 	margin-top: 50px;
+}
+
+.song {
+	text-transform: uppercase;
+	font-weight: bolder;
+}
+
+.artist {
+	margin-bottom: 5px;	
+}
+
+.bio {
+
 }

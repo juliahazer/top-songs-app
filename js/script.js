@@ -139,13 +139,16 @@ $(document).ready(function(){
 	    	$('tbody').append(`<tr id='pos${el.rank}'>
     			<td><span class="rank">${el.rank}</span></td>
     			<td>
-    				${el.songName}<br>
-    				<img src="${el.imgUrl}" /></td>
+    				<div class="song">${el.songName}</div>
+    				<div class="artist">by ${el.artist}</div>
+    				<div class="bio">
+	    				<a class="btn btn-default btn-xs btn-custom" role="button" 
+	    					target="_blank" href="${el.bioUrl}">
+	    				Bio for ${el.nameBio}</a>
+    				</div>
     			</td>
-    			<td>${el.artist}</td>
-    			<td><a class="btn btn-default btn-xs btn-custom" role="button" target="_blank" href="${el.bioUrl}">Bio for ${el.nameBio}</a></td>
     			<td><div class='youTube' id='player${el.rank}'</div></td`);
-
+				//<img src="${el.imgUrl}" /></td>
 	    });
 
 	    createYRPlayers();
@@ -159,9 +162,13 @@ $(document).ready(function(){
 	function createYRPlayers() {
 	  songsArr.forEach(function(el){
 	  	players[`player${el.rank}`] = new YT.Player(`player${el.rank}`, {
-	  		height: '180',
-	  		width: '320',
+	  		height: '300',
+	  		width: '500',
 	  		videoId: el.videoId,
+	  		playerVars: {
+	  			//'origin': 'http://localhost:3000'
+	  			'origin': 'https://juliahazer.github.io'
+	  		},
 	  		events: {
 	  			'onStateChange': onPlayerStateChange
 	  		}
