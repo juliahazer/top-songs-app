@@ -27,7 +27,6 @@ $(document).ready(function(){
 	}
 
 	/*  Lyrics
-		Change Categories
 		Change Num Songs
 		Get rid object above?
 	*/
@@ -36,24 +35,32 @@ $(document).ready(function(){
 
 	$('#navbarHome').on('click', function(e){
 		e.preventDefault();
+		categoryName = 'ALL';
 		getPrintSongs(0);
 		$('ul.navbar-nav li').removeClass('active');
 		$('#all').parent().addClass('active');
-		categoryName = 'ALL';
 	});
 
 	$('ul.navbar-nav li a').on('click', function(e){
 		e.preventDefault();
-		var genreNum = Number($(e.target).attr('data-genre'));
-		categoryName = $(e.target).attr('id');
-		getPrintSongs(genreNum);
-		$('ul.navbar-nav li').removeClass('active');
-		$(e.target).parent().addClass('active');
+		categoryName = $(e.target).text();
+		if (categoryName !== 'Other ' && categoryName !== ''){
+			var genreNum = Number($(e.target).attr('data-genre'));
+			getPrintSongs(genreNum);
+			$('ul.navbar-nav li').removeClass('active');	
+			if ($(e.target).parent().parent().hasClass('dropdown-menu')){
+				$('li.dropdown').addClass('active');	
+			}
+			else {
+				$(e.target).parent().addClass('active');
+			}		
+		}
 	});
 
 	function getPrintSongs(genreNum){
 		songsArr = []; 
-		var urlItunes = "https://itunes.apple.com/us/rss/topsongs/limit=" + totalCount + "/";
+		var urlItunes = "https://itunes.apple.com/us/rss/topsongs/limit=" 
+		+ totalCount + "/";
 		if (genreNum !== 0){
 			urlItunes += "genre=" + genreNum + "/";
 		}
@@ -142,7 +149,7 @@ $(document).ready(function(){
 	} 	
 
 	function printTable(){
-		console.log(songsArr);
+		//console.log(songsArr);
 
 		$('tbody').empty();
 

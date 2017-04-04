@@ -63,6 +63,10 @@ body {
   background-color: #fec503;
 }
 
+.dropdown-menu {
+  background-color: #222222;
+}
+
 /**********************************/
 
 .btn-custom {
