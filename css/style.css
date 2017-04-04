@@ -81,6 +81,23 @@
   background-color: #fed136;
 }
 
+.btn-custom2 {
+  background-color: #f2c503;
+  color: black;
+  outline: none;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  border: none;
+}
+
+.btn-custom2:hover,
+.btn-custom2:focus,
+.btn-custom2:active {
+  background-color: #222222;
+  color: #f2c503;
+}
+
 .btn:focus,
 .btn:active,
 .btn.active,

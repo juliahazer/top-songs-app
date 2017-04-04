@@ -28,10 +28,12 @@ $(document).ready(function(){
 	*/
 
 	getPrintSongs(0);
+	$('#playlistControls').hide();
 
 	$('#navbarHome').on('click', function(e){
 		e.preventDefault();
 		$('tbody').empty();
+		$('#playlistControls').hide();
 		getPrintSongs(0);
 		$('ul.navbar-nav li').removeClass('active');
 		$('#all').parent().addClass('active');
@@ -41,6 +43,7 @@ $(document).ready(function(){
 	$('ul.navbar-nav li a').on('click', function(e){
 		e.preventDefault();
 		$('tbody').empty();
+		$('#playlistControls').hide();
 		var genreNum = Number($(e.target).attr('data-genre'));
 		var category = $(e.target).attr('id');
 		getPrintSongs(genreNum);
@@ -150,7 +153,8 @@ $(document).ready(function(){
 	}
 
 	var players = {};
-	var playerCurrentlyPlaying = null;
+	var playerCurrentlyPlayingNum = null;
+	var playerCurrentlyPlayingId = null;
 
 	/*create the youTube video iframes*/
 	function createYRPlayers() {
@@ -164,7 +168,49 @@ $(document).ready(function(){
 	  		}
 	  	});
 	  });
+	  $('#playlistControls').show();
 	}
+
+	$('#startPlaylist').on('click', function(e){
+		e.preventDefault();
+		players['player1'].playVideo();
+
+	});
+
+	$('#pausePlaylist').on('click', function(e){
+		e.preventDefault();
+		pauseCurrentPlayer();
+	});
+
+	$('#resumePlaylist').on('click', function(e){
+		e.preventDefault();
+		players[playerCurrentlyPlayingId].playVideo();
+	});
+
+	$('#prevPlaylist').on('click', function(e){
+		e.preventDefault();
+		if (playerCurrentlyPlayingId !== null){
+			pauseCurrentPlayer();
+			if (playerCurrentlyPlayingNum === 1){
+				playerCurrentlyPlayingNum = totalCount + 1;
+				playerCurrentlyPlayingId = "player" + (totalCount+1);
+			}
+			playPrevVideo(playerCurrentlyPlayingId);
+		}
+	});
+
+	$('#nextPlaylist').on('click', function(e){
+		e.preventDefault();
+		if (playerCurrentlyPlayingId !== null){
+			pauseCurrentPlayer();
+			if (playerCurrentlyPlayingNum === totalCount){
+				playerCurrentlyPlayingNum = 0;
+				playerCurrentlyPlayingId = "player0";
+			}
+			playNextVideo(playerCurrentlyPlayingId);
+		}
+	});
+
 
 	function onPlayerStateChange(e){
 		/*if press play on a video...*/
@@ -178,6 +224,17 @@ $(document).ready(function(){
 		}
 	}
 
+	function playPrevVideo(idPlayer){
+		var idNum = idPlayer.match(/\d+/)[0];
+		var idNumPrev = Number(idNum) - 1;
+		var idPlayerPrev = "player" + idNumPrev;
+		if (idNumPrev >= 1){
+			players[idPlayerPrev].playVideo();
+			playerCurrentlyPlayingNum = idNumPrev;
+			playerCurrentlyPlayingId = idPlayerPrev;
+		}
+	}
+
 	/*automatically play the next video, as long as it's not the last one*/
 	function playNextVideo(idPlayer){
 		var idNum = idPlayer.match(/\d+/)[0];
@@ -185,45 +242,25 @@ $(document).ready(function(){
 		var idPlayerNext = "player" + idNumNext;
 		if (idNumNext <= totalCount){
 			players[idPlayerNext].playVideo();
+			playerCurrentlyPlayingNum = idNumNext;
+			playerCurrentlyPlayingId = idPlayerNext;
 		}
 	}
 
 	/*if another video is playing already, pause that video*/
 	function onYTPlay(idPlayer){
-	  if (playerCurrentlyPlaying !== idPlayer && playerCurrentlyPlaying !== null) {
+	  if (playerCurrentlyPlayingId !== idPlayer && playerCurrentlyPlayingId !== null) {
 	     pauseCurrentPlayer();
 	  }
-	  playerCurrentlyPlaying = idPlayer;
+	  playerCurrentlyPlayingId = idPlayer;
+	  playerCurrentlyPlayingNum = idPlayer.match(/\d+/)[0];
+	  playerCurrentlyPlayingNum = Number(playerCurrentlyPlayingNum);
 	}
 
 	function pauseCurrentPlayer(){
-	  var idPlayer = playerCurrentlyPlaying;
+	  var idPlayer = playerCurrentlyPlayingId;
 	  players[idPlayer].pauseVideo();
 	}
-
-	/*<td><iframe id='player${el.rank}' width="320" height="180" 
-    			src="${el.videoUrl}" frameborder="0" allowfullscreen></iframe></td>
-    			</tr>`);*/
-
-			// songsArr.forEach(function(el){
-	 //    	$('tbody').append(`<tr id='pos${el.rank}'>
-  //   			<td><span class="rank">${el.rank}</span></td>
-  //   			<td>
-  //   				${el.songName}<br>
-  //   				<img src="${el.imgUrl}" /></td>
-  //   			</td>
-  //   			<td>${el.artist}</td>
-  //   			<td><a class="btn btn-default btn-xs btn-custom" role="button" target="_blank" href="${el.bioUrl}">Bio for ${el.nameBio}</a></td>
-  //   			<td><div id="player"></div></td>
-  //   			</tr>`);
-	 //    });
-
-	// $('#pauseVid').on('click', function(e){
-	// 	e.preventDefault();
-	// 	$('iframe').each(function(){
-	// 		$(this)[0].contentWindow.postMessage('{"event":"command","func":"' + 'pauseVideo' + '","args":""}', '*');
-	// 	});
-	// });
 
 
 });
