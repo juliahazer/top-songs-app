@@ -56,6 +56,7 @@ $(document).ready(function(){
 
 		$('tbody').empty();
 		$('#playlistControls').hide();
+		$('#songPlaying').empty();
 
 		$('#categoryHeading').text(categoryName);
 		$('#categorySubheading').text("Top " + totalCount + " Songs");
@@ -71,7 +72,7 @@ $(document).ready(function(){
 				songObj.songName = el['im:name'].label;
 				songObj.rank = index + 1;
 				songObj.artist = el['im:artist'].label;
-				songObj.imgUrl = el['im:image'][2].label;
+				//songObj.imgUrl = el['im:image'][2].label;
 				
 				var artistIdUrl = el['im:artist'].attributes.href
 				var indexQues = artistIdUrl.indexOf('?uo');
@@ -155,8 +156,9 @@ $(document).ready(function(){
 	}
 
 	var players = {};
-	var playerCurrentlyPlayingNum = null;
-	var playerCurrentlyPlayingId = null;
+	var currentPlayingNum = null;
+	var currentPlayingId = null;
+	var playerState = 'Paused';
 
 	/*create the youTube video iframes*/
 	function createYRPlayers() {
@@ -166,8 +168,8 @@ $(document).ready(function(){
 	  		width: '500',
 	  		videoId: el.videoId,
 	  		playerVars: {
-	  			//'origin': 'http://localhost:3000'
-	  			'origin': 'https://juliahazer.github.io'
+	  			'origin': 'http://localhost:3000'
+	  			//'origin': 'https://juliahazer.github.io'
 	  		},
 	  		events: {
 	  			'onStateChange': onPlayerStateChange
@@ -177,46 +179,48 @@ $(document).ready(function(){
 	  $('#playlistControls').show();
 	}
 
-	$('#startPlaylist').on('click', function(e){
+	$('#playPausePlaylist').on('click', function(e){
 		e.preventDefault();
-		players['player1'].playVideo();
-
+		if (playerState === "Paused"){
+			var firstPlay = ifFirstPlay();
+			if (!firstPlay){
+				playVideo();
+			}	
+		}
+		else {//playerState === "Playing"
+			pauseVideo();
+		}
 	});
 
-	$('#pausePlaylist').on('click', function(e){
-		e.preventDefault();
-		pauseCurrentPlayer();
-	});
-
-	$('#resumePlaylist').on('click', function(e){
-		e.preventDefault();
-		players[playerCurrentlyPlayingId].playVideo();
-	});
+	function ifFirstPlay(){
+		if (currentPlayingNum === null){
+			currentPlayingNum = 1;
+			currentPlayingId = "player" + currentPlayingNum;
+			playVideo();
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
 	$('#prevPlaylist').on('click', function(e){
 		e.preventDefault();
-		if (playerCurrentlyPlayingId !== null){
-			pauseCurrentPlayer();
-			if (playerCurrentlyPlayingNum === 1){
-				playerCurrentlyPlayingNum = totalCount + 1;
-				playerCurrentlyPlayingId = "player" + (totalCount+1);
-			}
-			playPrevVideo(playerCurrentlyPlayingId);
+		var firstPlay = ifFirstPlay();
+		if (!firstPlay){
+			pauseVideo();
+			playPrevVideo();
 		}
 	});
 
 	$('#nextPlaylist').on('click', function(e){
 		e.preventDefault();
-		if (playerCurrentlyPlayingId !== null){
-			pauseCurrentPlayer();
-			if (playerCurrentlyPlayingNum === totalCount){
-				playerCurrentlyPlayingNum = 0;
-				playerCurrentlyPlayingId = "player0";
-			}
-			playNextVideo(playerCurrentlyPlayingId);
+		var firstPlay = ifFirstPlay();
+		if (!firstPlay){
+			pauseVideo();
+			playNextVideo();
 		}
 	});
-
 
 	function onPlayerStateChange(e){
 		/*if press play on a video...*/
@@ -226,48 +230,64 @@ $(document).ready(function(){
 
 		/*once a video is finished, automatically play the next video*/
 		if(e.data == YT.PlayerState.ENDED){
-			playNextVideo(e.target.a.id);
+			playNextVideo();
 		}
 	}
 
-	function playPrevVideo(idPlayer){
-		var idNum = idPlayer.match(/\d+/)[0];
-		var idNumPrev = Number(idNum) - 1;
-		var idPlayerPrev = "player" + idNumPrev;
-		if (idNumPrev >= 1){
-			players[idPlayerPrev].playVideo();
-			playerCurrentlyPlayingNum = idNumPrev;
-			playerCurrentlyPlayingId = idPlayerPrev;
+	function pauseVideo(){
+		$('#playPausePlaylist span').removeClass('glyphicon-pause');
+		$('#playPausePlaylist span').addClass('glyphicon-play');
+	  	playerState = "Paused";
+	  	players[currentPlayingId].pauseVideo();
+	  	displaySongPlaying();
+	}
+
+	function playVideo(){
+		$('#playPausePlaylist span').removeClass('glyphicon-play');
+		$('#playPausePlaylist span').addClass('glyphicon-pause');
+		playerState = "Playing";
+		players[currentPlayingId].playVideo();
+		displaySongPlaying();
+	}
+
+	function displaySongPlaying(){
+		var arrPos = currentPlayingNum - 1;
+		var currentSong = songsArr[arrPos];
+		var html = `#${currentSong.rank}: ${currentSong.songName} by 
+			${currentSong.artist} – ${playerState}`;
+		$('#songPlaying').html(html);
+	}
+
+	function playPrevVideo(){
+		if (currentPlayingNum === 1){
+			currentPlayingNum = totalCount;
+		} else {
+			currentPlayingNum--;
 		}
+		currentPlayingId = "player" + currentPlayingNum;
+		playVideo();
 	}
 
 	/*automatically play the next video, as long as it's not the last one*/
-	function playNextVideo(idPlayer){
-		var idNum = idPlayer.match(/\d+/)[0];
-		var idNumNext = Number(idNum) + 1;
-		var idPlayerNext = "player" + idNumNext;
-		if (idNumNext <= totalCount){
-			players[idPlayerNext].playVideo();
-			playerCurrentlyPlayingNum = idNumNext;
-			playerCurrentlyPlayingId = idPlayerNext;
+	function playNextVideo(){
+		if (currentPlayingNum === totalCount){
+			currentPlayingNum = 1;
+		} else {
+			currentPlayingNum++;
 		}
+		currentPlayingId = "player" + currentPlayingNum;
+		playVideo();
 	}
 
 	/*if another video is playing already, pause that video*/
 	function onYTPlay(idPlayer){
-	  if (playerCurrentlyPlayingId !== idPlayer && playerCurrentlyPlayingId !== null) {
-	     pauseCurrentPlayer();
+	  if (currentPlayingId !== idPlayer && currentPlayingId !== null) {
+	     pauseVideo();
 	  }
-	  playerCurrentlyPlayingId = idPlayer;
-	  playerCurrentlyPlayingNum = idPlayer.match(/\d+/)[0];
-	  playerCurrentlyPlayingNum = Number(playerCurrentlyPlayingNum);
+	  currentPlayingId = idPlayer;
+	  currentPlayingNum = idPlayer.match(/\d+/)[0];
+	  currentPlayingNum = Number(currentPlayingNum);
 	}
-
-	function pauseCurrentPlayer(){
-	  var idPlayer = playerCurrentlyPlayingId;
-	  players[idPlayer].pauseVideo();
-	}
-
 
 });
 
