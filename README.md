@@ -1,6 +1,6 @@
 # Top Songs 
 
-### A single page application that displays top songs based on iTunes charts and allows users to watch & control YouTube videos of these songs.
+### A single page application that displays top songs based on iTunes chart categories and allows users to watch & control YouTube videos of these songs.
 
 #### Features Include:
 * User can select different music categories for top songs.
