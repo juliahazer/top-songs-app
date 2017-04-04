@@ -5,6 +5,11 @@ $(document).ready(function(){
 	var totalCount = 5;
 	var categoryName = "ALL";
 
+	var players = {};
+	var currentPlayingNum = null;
+	var currentPlayingId = null;
+	var playerState = 'Paused';
+
 	//https://affiliate.itunes.apple.com/resources/documentation/genre-mapping/
 	var genreObj = {
 		5: "Classical",
@@ -53,6 +58,11 @@ $(document).ready(function(){
 			urlItunes += "genre=" + genreNum + "/";
 		}
 		urlItunes += "json";
+
+		players = {};
+		currentPlayingNum = null;
+		currentPlayingId = null;
+		playerState = 'Paused';
 
 		$('tbody').empty();
 		$('#playlistControls').hide();
@@ -154,11 +164,6 @@ $(document).ready(function(){
 
 	    createYRPlayers();
 	}
-
-	var players = {};
-	var currentPlayingNum = null;
-	var currentPlayingId = null;
-	var playerState = 'Paused';
 
 	/*create the youTube video iframes*/
 	function createYRPlayers() {
