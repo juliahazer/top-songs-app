@@ -1,32 +1,23 @@
 $(document).ready(function(){
 
 	var songsArr;
+	
 	var count;
 	var totalCount = 5;
 	var categoryName = "ALL";
+
+	//https://affiliate.itunes.apple.com/resources/documentation/genre-mapping/
 	var genreNum = 0;
+
+	//https://gist.github.com/daFish/5990634
+	var countryCode = "us";
+	var country = "US";
 
 	var players = {};
 	var currentPlayingNum = null;
 	var currentPlayingId = null;
 	var playerState = 'Paused';
 	var muted = false;
-
-	//https://affiliate.itunes.apple.com/resources/documentation/genre-mapping/
-	// var genreObj = {
-	// 	5: "Classical",
-	// 	2: "Blues",
-	// 	6: "Country",
-	// 	7: "Electronic",
-	// 	11: "Jazz",
-	// 	12: "Latino",
-	// 	14: "Pop",
-	// 	15: "R&B/Soul",
-	// 	18: "Hip-Hop/Rap",
-	// 	19: "World",
-	// 	20: "Alternative",
-	// 	21: "Rock"
-	// }
 
 	//get ALL songs
 	getPrintSongs(0);
@@ -60,20 +51,33 @@ $(document).ready(function(){
 	});
 
 	/* SWITCH NUMBER OF SONGS DROPDOWN */
-	$('#headingDiv .btn-group .dropdown-menu li a').on('click', function(e){
+	$('#numSongsBtn.btn-group .dropdown-menu li a').on('click', function(e){
 		e.preventDefault();
 		var countClicked = Number($(e.target).text());
 		if (totalCount !== countClicked){
 			totalCount = countClicked;
 			getPrintSongs(genreNum);
-			$('#headingDiv .dropdown-menu li').removeClass('active');	
+			$('#numSongsBtn .dropdown-menu li').removeClass('active');	
+			$(e.target).parent().addClass('active');
+		}
+	});
+
+	/* SWITCH COUNTRY DROPDOWN */
+	$('#countriesBtn.btn-group .dropdown-menu li a').on('click', function(e){
+		e.preventDefault();
+		var countryClicked = $(e.target).attr('data-country');
+		if (countryCode !== countryClicked){
+			countryCode = countryClicked;
+			country = $(e.target).text();
+			getPrintSongs(genreNum);
+			$('#countriesBtn .dropdown-menu li').removeClass('active');	
 			$(e.target).parent().addClass('active');
 		}
 	});
 
 	function getPrintSongs(genreNum){
 		songsArr = []; 
-		var urlItunes = "https://itunes.apple.com/us/rss/topsongs/limit=" 
+		var urlItunes = "https://itunes.apple.com/" + countryCode + "/rss/topsongs/limit=" 
 		+ totalCount + "/";
 		if (genreNum !== 0){
 			urlItunes += "genre=" + genreNum + "/";
@@ -94,7 +98,7 @@ $(document).ready(function(){
 		muted = false;
 
 		$('#categoryHeading').text(categoryName);
-		$('#categorySubheading').text("Top " + totalCount + " Songs");
+		$('#categorySubheading').text("Top " + totalCount + " Songs - " + country);
 
 		$.ajax({
 			method: "GET",

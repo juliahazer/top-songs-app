@@ -69,7 +69,17 @@ body {
 
 /***********************************/
 
-#headingDiv .btn-group button {
+.btnSelect,
+.btnSelect:focus,
+.btnSelect:hover {
+  background-color: #222222;
+  color: white;
+}
+
+#headingDiv .dropdown-toggle:hover,
+#headingDiv .dropdown-toggle:focus,
+#headingDiv .dropdown-toggle:active{
+  background-color: #fec503;
 }
 
 #headingDiv .btn-group li a {
@@ -171,10 +181,10 @@ body {
 	font-style: italic;
 }
 
-#numSongsBtn {
-  position: relative;
-  top: -8px;
-  padding-left: 10px;
+#numSongsBtn,
+#countriesBtn {
+  padding-right: 5px;
+  margin-bottom: 8px;
 }
 
 
