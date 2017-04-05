@@ -85,7 +85,8 @@ body {
   background-color: #fed136;
 }
 
-.btn-custom2 {
+.btn-custom2,
+.btn-custom2:focus {
   background-color: #f2c503;
   color: black;
   outline: none;
@@ -96,7 +97,6 @@ body {
 }
 
 .btn-custom2:hover,
-.btn-custom2:focus,
 .btn-custom2:active {
   background-color: #222222;
   color: #f2c503;
@@ -144,12 +144,35 @@ h3.section-subheading{
 
 /**********************************/
 
-/*img {
-	height: 100px;
-}*/
-
 .first {
-	margin-top: 50px;
+	margin-top: 70px;
+}
+
+#brandTitle {
+  display: block;
+}
+
+#playlistControls {
+  display: block;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+#songPlaying {
+  font-style: italic;
+  font-size: 1.3em;
+  background-color: #fec503;
+  color: #222222;
+  padding: 5px;
+  padding-left: 8px;
+  margin-bottom: 5px;
+  border-radius: 3px;
+}
+
+.symbolGlyph {
+  position: relative;
+  top: 3px;
+  padding-right: 3px;
 }
 
 .song {

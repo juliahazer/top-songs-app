@@ -182,8 +182,7 @@ $(document).ready(function(){
 	  		width: '500',
 	  		videoId: el.videoId,
 	  		playerVars: {
-	  			'origin': 'http://localhost:3000'
-	  			//'origin': 'https://juliahazer.github.io'
+	  			'origin': 'https://juliahazer.github.io'
 	  		},
 	  		events: {
 	  			'onStateChange': onPlayerStateChange
@@ -238,6 +237,13 @@ $(document).ready(function(){
 
 	function onPlayerStateChange(e){
 		/*if press play on a video...*/
+		if (e.data == YT.PlayerState.PAUSED){
+			if (e.target.a.id === currentPlayingId){
+				changeState(false);
+				displaySongPlaying();
+			}
+		}
+
 		if(e.data == YT.PlayerState.PLAYING){
 			onYTPlay(e.target.a.id);
 		}
@@ -249,26 +255,54 @@ $(document).ready(function(){
 	}
 
 	function pauseVideo(){
-		$('#playPausePlaylist span').removeClass('glyphicon-pause');
-		$('#playPausePlaylist span').addClass('glyphicon-play');
-	  	playerState = "Paused";
 	  	players[currentPlayingId].pauseVideo();
+	  	changeState(false);
 	  	displaySongPlaying();
 	}
 
 	function playVideo(){
-		$('#playPausePlaylist span').removeClass('glyphicon-play');
-		$('#playPausePlaylist span').addClass('glyphicon-pause');
-		playerState = "Playing";
 		players[currentPlayingId].playVideo();
+		changeState(true);
 		displaySongPlaying();
+	}
+
+		/*if another video is playing already, pause that video*/
+	function onYTPlay(idPlayer){
+		if (currentPlayingId !== idPlayer && currentPlayingId !== null) {
+		 pauseVideo();
+		}
+		currentPlayingId = idPlayer;
+		currentPlayingNum = idPlayer.match(/\d+/)[0];
+		currentPlayingNum = Number(currentPlayingNum);
+		changeState(true);
+		displaySongPlaying();
+	}
+
+	function changeState(playing){
+		if (playing){ //change to playing state
+			$('#playPausePlaylist span').removeClass('glyphicon-play');
+			$('#playPausePlaylist span').addClass('glyphicon-pause');
+			playerState = "Playing";
+		}
+		else { //change to pause state
+			$('#playPausePlaylist span').removeClass('glyphicon-pause');
+			$('#playPausePlaylist span').addClass('glyphicon-play');
+		  	playerState = "Paused";
+		}
 	}
 
 	function displaySongPlaying(){
 		var arrPos = currentPlayingNum - 1;
 		var currentSong = songsArr[arrPos];
-		var html = `#${currentSong.rank}: ${currentSong.songName} by 
-			${currentSong.artist} – ${playerState}`;
+		var glyph;
+		if (playerState === 'Playing'){
+			glyph = "glyphicon-volume-up";
+		}
+		else {
+			glyph = "glyphicon-volume-off";
+		}
+		var html = `${playerState} <span class="symbolGlyph glyphicon ${glyph}" aria-hidden="true"></span> #${currentSong.rank}: ${currentSong.songName} by 
+			${currentSong.artist}`;
 		$('#songPlaying').html(html);
 	}
 
@@ -291,16 +325,6 @@ $(document).ready(function(){
 		}
 		currentPlayingId = "player" + currentPlayingNum;
 		playVideo();
-	}
-
-	/*if another video is playing already, pause that video*/
-	function onYTPlay(idPlayer){
-	  if (currentPlayingId !== idPlayer && currentPlayingId !== null) {
-	     pauseVideo();
-	  }
-	  currentPlayingId = idPlayer;
-	  currentPlayingNum = idPlayer.match(/\d+/)[0];
-	  currentPlayingNum = Number(currentPlayingNum);
 	}
 
 });

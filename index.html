@@ -4,17 +4,17 @@
 	<meta charset="UTF-8">
 	<title>Top Songs</title>
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<link rel="stylesheet" href="css/style.css">
 
 	<script
-	  src="https://code.jquery.com/jquery-3.1.1.min.js"
+	  src="//code.jquery.com/jquery-3.1.1.min.js"
 	  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 	  crossorigin="anonymous"></script>
 
 	  <!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -29,7 +29,20 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#" id="navbarHome">Top Songs</a>
+      	<div id="brandTitle">
+      		<a class="navbar-brand" href="#" id="navbarHome">Top Songs</a>
+      	</div>
+      	<div id="playlistControls">
+			<a id="prevPlaylist" class="resume btn btn-default btn-sm btn-custom2" role="button" href="#">
+				<span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+			</a>
+			<a id="playPausePlaylist" class="firstStart btn btn-default btn-sm btn-custom2" role="button" href="#">
+				<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+			</a>
+			<a id="nextPlaylist" class="resume btn btn-default btn-sm btn-custom2" role="button" href="#">
+				<span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
+			</a>
+		</div>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -38,20 +51,19 @@
         <li class="active"><a class="category" id="all" data-genre="0" href="#">All <span class="sr-only">(current)</span></a></li>
         <li><a href="#" class="category" id="pop" data-genre="14">Pop</a></li>
         <li><a href="#" class="category" id="rock" data-genre="21">Rock</a></li>
-        <li><a href="#" class="category" id="alternative" data-genre="20">Alternative</a></li>
         <li><a href="#" class="category" id="country" data-genre="6">Country</a></li>
         <li><a href="#" class="category" id="latino" data-genre="12">Latino</a></li>
 
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Other <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#" class="category" id="rb-soul" data-genre="15">R&amp;B/Soul</a></li>
-            <li><a href="#" class="category" id="classical" data-genre="5">Classical</a></li>
-            <li><a href="#" class="category" id="hipHop" data-genre="11">Jazz</a></li>
-            <li><a href="#" class="category" id="hipHop" data-genre="19">World</a></li>
+			<li><a href="#" class="category" id="alternative" data-genre="20">Alternative</a></li>
+			<li><a href="#" class="category" id="classical" data-genre="5">Classical</a></li>
+			<li><a href="#" class="category" id="hipHop" data-genre="11">Jazz</a></li>
+			<li><a href="#" class="category" id="rb-soul" data-genre="15">R&amp;B/Soul</a></li>
+			<li><a href="#" class="category" id="hipHop" data-genre="19">World</a></li>
           </ul>
-        </li>
-        
+        </li>       
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -61,21 +73,9 @@
 
 	<h2 class="section-heading" id="categoryHeading"></h2>
 	<h3 class="section-subheading" id="categorySubheading"></h3>
-
-	<div id="playlistControls">
-		<a id="prevPlaylist" class="resume btn btn-default btn-sm btn-custom2" role="button" href="#">
-			<span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
-		</a>
-		<a id="playPausePlaylist" class="firstStart btn btn-default btn-sm btn-custom2" role="button" href="#">
-			<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
-		</a>
-		<a id="nextPlaylist" class="resume btn btn-default btn-sm btn-custom2" role="button" href="#">
-			<span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
-		</a>
-	</div>
-
+	
 	<div id="songPlaying">
-	</div>
+    </div>
 
 	<table class="table table-striped table-hover table-responsive table-sm"> 
 		<thead> 
