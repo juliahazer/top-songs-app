@@ -11,28 +11,26 @@ $(document).ready(function(){
 	var playerState = 'Paused';
 
 	//https://affiliate.itunes.apple.com/resources/documentation/genre-mapping/
-	var genreObj = {
-		5: "Classical",
-		2: "Blues",
-		6: "Country",
-		7: "Electronic",
-		11: "Jazz",
-		12: "Latino",
-		14: "Pop",
-		15: "R&B/Soul",
-		18: "Hip-Hop/Rap",
-		19: "World",
-		20: "Alternative",
-		21: "Rock"
-	}
-
-	/*  Lyrics
-		Change Num Songs
-		Get rid object above?
-	*/
+	// var genreObj = {
+	// 	5: "Classical",
+	// 	2: "Blues",
+	// 	6: "Country",
+	// 	7: "Electronic",
+	// 	11: "Jazz",
+	// 	12: "Latino",
+	// 	14: "Pop",
+	// 	15: "R&B/Soul",
+	// 	18: "Hip-Hop/Rap",
+	// 	19: "World",
+	// 	20: "Alternative",
+	// 	21: "Rock"
+	// }
 
 	getPrintSongs(0);
 
+	/*NAV BAR EVENTS*/
+
+	/* on brand click, get songs from the "All" category */ 
 	$('#navbarHome').on('click', function(e){
 		e.preventDefault();
 		categoryName = 'ALL';
@@ -41,6 +39,7 @@ $(document).ready(function(){
 		$('#all').parent().addClass('active');
 	});
 
+	/* on navbar links, get songs based on category selected*/
 	$('ul.navbar-nav li a').on('click', function(e){
 		e.preventDefault();
 		categoryName = $(e.target).text();
@@ -119,11 +118,7 @@ $(document).ready(function(){
 				else {
 					songName = el.songName.slice(0,featureIndex);
 				}
-				//songName = songName.replace(/\'|&/g,"");
-				//songName = songName.split(' ').join('+');
-				//artistName = artistName.replace(/\'|&\s/g, "");
-				//artistName = artistName.split(' ').join('+');
-				//console.log(songName + "    " + artistName);
+
 				var url = `https://www.googleapis.com/youtube/v3/search
 				?part=snippet
 				&maxResults=1
@@ -147,7 +142,6 @@ $(document).ready(function(){
 				});
 			})    
 		});
-
 	} 	
 
 	function printTable(){
@@ -168,7 +162,6 @@ $(document).ready(function(){
     				</div>
     			</td>
     			<td><div class='youTube' id='player${el.rank}'</div></td`);
-				//<img src="${el.imgUrl}" /></td>
 	    });
 
 	    createYRPlayers();
@@ -266,7 +259,7 @@ $(document).ready(function(){
 		displaySongPlaying();
 	}
 
-		/*if another video is playing already, pause that video*/
+	/*if another video is playing already, pause that video*/
 	function onYTPlay(idPlayer){
 		if (currentPlayingId !== idPlayer && currentPlayingId !== null) {
 		 pauseVideo();
