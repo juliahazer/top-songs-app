@@ -63,8 +63,33 @@ body {
   background-color: #fec503;
 }
 
-.dropdown-menu {
+.navbar-custom .dropdown-menu {
   background-color: #222222;
+}
+
+/***********************************/
+
+#headingDiv .btn-group button {
+}
+
+#headingDiv .btn-group li a {
+  color: white;
+}
+
+#headingDiv .btn-group li a:hover,
+.navbar-custom .nav li a:focus {
+  color: #222222;
+}
+
+#headingDiv .btn-group .dropdown-menu {
+  background-color: #222222;
+}
+
+#headingDiv .btn-group .dropdown-menu > .active > a,
+#headingDiv .btn-group .dropdown-menu > .active > a:hover,
+#headingDiv .btn-group .dropdown-menu > .active > a:focus {
+  background-color: #fec503;
+  color: white;
 }
 
 /**********************************/
@@ -126,27 +151,34 @@ body {
 
 /**********************************/
 
-h2.section-heading{
+#headingDiv {
+  margin-top: 70px;
+}
+
+.section-heading{
 	display: inline-block;
 	font-size: 40px;
 	text-transform: uppercase;
 }
 
-h3.section-subheading{
+.section-subheading{
 	display: inline-block;
 	position: relative;
 	top: -5px;
-	left: 10px;
+	padding-left: 10px;
 	font-size: 25px;
 	font-weight: normal;
 	font-style: italic;
 }
 
-/**********************************/
-
-.first {
-	margin-top: 70px;
+#numSongsBtn {
+  position: relative;
+  top: -8px;
+  padding-left: 10px;
 }
+
+
+/**********************************/
 
 #brandTitle {
   display: block;

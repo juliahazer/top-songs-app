@@ -4,6 +4,7 @@ $(document).ready(function(){
 	var count;
 	var totalCount = 5;
 	var categoryName = "ALL";
+	var genreNum = 0;
 
 	var players = {};
 	var currentPlayingNum = null;
@@ -27,6 +28,7 @@ $(document).ready(function(){
 	// 	21: "Rock"
 	// }
 
+	//get ALL songs
 	getPrintSongs(0);
 
 	/*NAV BAR EVENTS*/
@@ -45,7 +47,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		categoryName = $(e.target).text();
 		if (categoryName !== 'Other ' && categoryName !== ''){
-			var genreNum = Number($(e.target).attr('data-genre'));
+			genreNum = Number($(e.target).attr('data-genre'));
 			getPrintSongs(genreNum);
 			$('ul.navbar-nav li').removeClass('active');	
 			if ($(e.target).parent().parent().hasClass('dropdown-menu')){
@@ -54,6 +56,18 @@ $(document).ready(function(){
 			else {
 				$(e.target).parent().addClass('active');
 			}		
+		}
+	});
+
+	/* SWITCH NUMBER OF SONGS DROPDOWN */
+	$('#headingDiv .btn-group .dropdown-menu li a').on('click', function(e){
+		e.preventDefault();
+		var countClicked = Number($(e.target).text());
+		if (totalCount !== countClicked){
+			totalCount = countClicked;
+			getPrintSongs(genreNum);
+			$('#headingDiv .dropdown-menu li').removeClass('active');	
+			$(e.target).parent().addClass('active');
 		}
 	});
 
@@ -249,6 +263,8 @@ $(document).ready(function(){
 		}
 	});
 
+	/*This is a YouTube iFrame API function - the API will call 
+	this funtion when the state of a player changes*/
 	function onPlayerStateChange(e){
 		/*if press play on a video...*/
 		if (e.data == YT.PlayerState.PAUSED){
@@ -258,7 +274,7 @@ $(document).ready(function(){
 		}
 
 		if(e.data == YT.PlayerState.PLAYING){
-			onYTPlay(e.target.a.id);
+			checkOtherVideoPlaying(e.target.a.id);
 		}
 
 		/*once a video is finished, automatically play the next video*/
@@ -282,7 +298,7 @@ $(document).ready(function(){
 	}
 
 	/*if another video is playing already, pause that video*/
-	function onYTPlay(idPlayer){
+	function checkOtherVideoPlaying(idPlayer){
 		if (currentPlayingId !== idPlayer && currentPlayingId !== null) {
 		 pauseVideo();
 		}

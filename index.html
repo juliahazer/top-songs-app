@@ -73,9 +73,25 @@
 </nav>
 
 <div class="container-fluid first">
-
-	<h2 class="section-heading" id="categoryHeading"></h2>
-	<h3 class="section-subheading" id="categorySubheading"></h3>
+	<div id="headingDiv">
+		<h2 class="section-heading" id="categoryHeading"></h2>
+		<h3 class="section-subheading" id="categorySubheading"></h3>
+		<!-- Split button -->
+		<div class="btn-group" id="numSongsBtn">
+		  <button type="button" class="btn btn-default"># of Songs</button>
+		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    <span class="caret"></span>
+		    <span class="sr-only">Toggle Dropdown</span>
+		  </button>
+		  <ul class="dropdown-menu">
+		    <li class="active"><a class="numSongs" href="#">5</a></li>
+		    <li><a class="numSongs" href="#">10</a></li>
+		    <li><a class="numSongs" href="#">15</a></li>
+		    <li><a class="numSongs" href="#">20</a></li>
+		    <li><a class="numSongs" href="#">25</a></li>
+		  </ul>
+		</div>
+	</div>
 	
 	<div id="songPlaying">
     </div>
