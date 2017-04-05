@@ -9,6 +9,7 @@ $(document).ready(function(){
 	var currentPlayingNum = null;
 	var currentPlayingId = null;
 	var playerState = 'Paused';
+	var muted = false;
 
 	//https://affiliate.itunes.apple.com/resources/documentation/genre-mapping/
 	// var genreObj = {
@@ -72,9 +73,11 @@ $(document).ready(function(){
 		$('#playPausePlaylist span').removeClass('glyphicon-pause');
 		$('#playPausePlaylist span').addClass('glyphicon-play');
 
+		$('#mutePlaylist').toggle(false);
 		$('tbody').empty();
 		$('#playlistControls').hide();
 		$('#songPlaying').empty();
+		muted = false;
 
 		$('#categoryHeading').text(categoryName);
 		$('#categorySubheading').text("Top " + totalCount + " Songs");
@@ -198,6 +201,24 @@ $(document).ready(function(){
 		}
 	});
 
+	$('#mutePlaylist').on('click', function(e){
+		e.preventDefault();
+		if (muted){ //if it's muted on click, unmute it
+			players[currentPlayingId].unMute();
+			$('#mutePlaylist span').removeClass('glyphicon-volume-off');
+			$('#mutePlaylist span').addClass('glyphicon-volume-up');
+			muted = false;
+			displaySongPlaying();
+		}
+		else { //if it's not muted on click, mute it
+			players[currentPlayingId].mute();
+			$('#mutePlaylist span').removeClass('glyphicon-volume-up');
+			$('#mutePlaylist span').addClass('glyphicon-volume-off');
+			muted = true;
+			displaySongPlaying();
+		}
+	});
+
 	function ifFirstPlay(){
 		if (currentPlayingNum === null){
 			currentPlayingNum = 1;
@@ -232,8 +253,7 @@ $(document).ready(function(){
 		/*if press play on a video...*/
 		if (e.data == YT.PlayerState.PAUSED){
 			if (e.target.a.id === currentPlayingId){
-				changeState(false);
-				displaySongPlaying();
+				pauseVideo();
 			}
 		}
 
@@ -248,12 +268,14 @@ $(document).ready(function(){
 	}
 
 	function pauseVideo(){
+		$('#mutePlaylist').toggle(false);
 	  	players[currentPlayingId].pauseVideo();
 	  	changeState(false);
 	  	displaySongPlaying();
 	}
 
 	function playVideo(){
+		$('#mutePlaylist').toggle(true);
 		players[currentPlayingId].playVideo();
 		changeState(true);
 		displaySongPlaying();
@@ -267,8 +289,7 @@ $(document).ready(function(){
 		currentPlayingId = idPlayer;
 		currentPlayingNum = idPlayer.match(/\d+/)[0];
 		currentPlayingNum = Number(currentPlayingNum);
-		changeState(true);
-		displaySongPlaying();
+		playVideo();
 	}
 
 	function changeState(playing){
@@ -288,13 +309,17 @@ $(document).ready(function(){
 		var arrPos = currentPlayingNum - 1;
 		var currentSong = songsArr[arrPos];
 		var glyph;
+		var mutedText = '';
 		if (playerState === 'Playing'){
-			glyph = "glyphicon-volume-up";
+			glyph = "glyphicon-play-circle"; //"glyphicon-volume-up";
+			if (muted) {
+				mutedText = "MUTED: ";
+			}
 		}
 		else {
-			glyph = "glyphicon-volume-off";
+			glyph = "glyphicon-remove-circle"; //"glyphicon-volume-off";
 		}
-		var html = `${playerState} <span class="symbolGlyph glyphicon ${glyph}" aria-hidden="true"></span> #${currentSong.rank}: ${currentSong.songName} by 
+		var html = `${mutedText} ${playerState} <span class="symbolGlyph glyphicon ${glyph}" aria-hidden="true"></span> #${currentSong.rank}: ${currentSong.songName} by 
 			${currentSong.artist}`;
 		$('#songPlaying').html(html);
 	}
