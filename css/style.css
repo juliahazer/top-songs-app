@@ -1,151 +1,196 @@
-/*Resources used: Bootstrap theme: Agency
-	https://blackrockdigital.github.io/startbootstrap-agency/
-	https://github.com/BlackrockDigital/startbootstrap-agency/blob/master/css/agency.css
-*/
 body {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-.navbar-custom .navbar-brand {
-	font-size: 2em;
-	text-transform: uppercase;
-	padding-right: 30px;
-}
-
-.navbar-custom {
-  background-color: #222222;
-  border-color: transparent;
-}
-.navbar-custom .navbar-brand {
-  color: #fed136;
-}
-.navbar-custom .navbar-brand:hover,
-.navbar-custom .navbar-brand:focus,
-.navbar-custom .navbar-brand:active,
-.navbar-custom .navbar-brand.active {
-  color: #fec503;
-}
-.navbar-custom .navbar-collapse {
-  border-color: rgba(255, 255, 255, 0.02);
-}
-.navbar-custom .navbar-toggle {
-  background-color: #fed136;
-  border-color: #fed136;
-  text-transform: uppercase;
-  color: white;
-  font-size: 12px;
-}
-
-.navbar-custom .navbar-toggle:hover,
-.navbar-custom .navbar-toggle:focus {
-  background-color: #fed136;
-}
-.navbar-custom .nav li a {
-  text-transform: uppercase;
-  font-weight: 400;
-  letter-spacing: 1px;
-  color: white;
-}
-
-.navbar-custom .nav li a:hover,
-.navbar-custom .nav li a:focus {
-  color: #fed136;
-  outline: none;
-}
-.navbar-custom .navbar-nav > .active > a {
-  border-radius: 0;
-  color: white;
-  background-color: #fed136;
-}
-.navbar-custom .navbar-nav > .active > a:hover,
-.navbar-custom .navbar-nav > .active > a:focus {
-  color: white;
-  background-color: #fec503;
-}
-
-.navbar-custom .dropdown-menu {
-  background-color: #222222;
-}
-
-/***********************************/
-
-.btnSelect,
-.btnSelect:focus,
-.btnSelect:hover {
-  background-color: #222222;
-  color: white;
-}
-
-#headingDiv .dropdown-toggle:hover,
-#headingDiv .dropdown-toggle:focus,
-#headingDiv .dropdown-toggle:active{
-  background-color: #fec503;
-}
-
-#headingDiv .btn-group li a {
-  color: white;
-}
-
-#headingDiv .btn-group li a:hover,
-.navbar-custom .nav li a:focus {
-  color: #222222;
-}
-
-#headingDiv .btn-group .dropdown-menu {
-  background-color: #222222;
-}
-
-#headingDiv .btn-group .dropdown-menu > .active > a,
-#headingDiv .btn-group .dropdown-menu > .active > a:hover,
-#headingDiv .btn-group .dropdown-menu > .active > a:focus {
-  background-color: #fec503;
-  color: white;
-}
-
-/**********************************/
-
-.btn-custom {
-  background-color: #222222;
-  color: white;
-  outline: none;
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  transition: all 0.3s;
-  border: none;
-}
-
-.btn-custom:hover,
-.btn-custom:focus,
-.btn-custom:active {
-  background-color: #fed136;
-}
-
-.btn-custom2,
-.btn-custom2:focus {
-  background-color: #f2c503;
-  color: black;
-  outline: none;
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  transition: all 0.3s;
-  border: none;
-}
-
-.btn-custom2:hover,
-.btn-custom2:active {
-  background-color: #222222;
-  color: #f2c503;
 }
 
 .btn:focus,
 .btn:active,
 .btn.active,
 .btn:active:focus {
-  outline: none;
+	outline: none;
 }
 
-/**********************************/
-.rank {
+/************* NAV BAR *************/
+/*Resource used for nav bar styling: Bootstrap theme: Agency
+	https://github.com/BlackrockDigital/startbootstrap-agency/blob/master/css/agency.css
+*/
+.navbar-custom {
+	background-color: #222222;
+	border-color: transparent;
+}
+
+/*hamburger menu on smaller screens*/
+.navbar-custom .navbar-toggle {
+	background-color: #fed136;
+	border-color: #fed136;
+	text-transform: uppercase;
+	color: white;
+	font-size: 12px;
+}
+
+.navbar-custom .navbar-toggle:hover,
+.navbar-custom .navbar-toggle:focus {
+	background-color: #fed136;
+}
+
+/*"Top Songs" brand*/
+.navbar-custom .navbar-brand {
+	font-size: 2em;
+	text-transform: uppercase;
+	padding-right: 30px;
+	color: #fed136;
+}
+
+.navbar-custom .navbar-brand:hover,
+.navbar-custom .navbar-brand:focus,
+.navbar-custom .navbar-brand:active,
+.navbar-custom .navbar-brand.active {
+	color: #fec503;
+}
+
+.navbar-custom #brandTitle {
+	display: block;
+}
+
+/*Playlist controls*/
+.navbar-custom #playlistControls {
+	display: block;
+	padding-top: 10px;
+	padding-bottom: 5px;
+}
+
+.navbar-custom #playlistControls a,
+.navbar-custom #playlistControls a:focus {
+	background-color: #f2c503;
+	color: black;
+	outline: none;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+	border: none;
+}
+
+.navbar-custom #playlistControls a:hover,
+.navbar-custom #playlistControls a:active {
+	background-color: #222222;
+	color: #f2c503;
+}
+
+/*Nav bar links*/
+.navbar-custom .nav li a {
+	text-transform: uppercase;
+	font-weight: 400;
+	letter-spacing: 1px;
+	color: white;
+}
+
+.navbar-custom .nav li a:hover {
+	color: #fed136;
+	outline: none;
+}
+
+.navbar-custom .nav li a:focus {
+	color: #222222;
+	outline: none;
+}
+
+/*Currently selected/active nav bar links*/
+.navbar-custom .navbar-nav > .active > a {
+	border-radius: 0;
+	color: white;
+	background-color: #fed136;
+}
+
+.navbar-custom .navbar-nav > .active > a:hover,
+.navbar-custom .navbar-nav > .active > a:focus {
+	color: white;
+	background-color: #fec503;
+}
+
+/*OTHER dropdown menu*/
+.navbar-custom .dropdown-menu {
+	background-color: #222222;
+}
+
+/************* HEADER *************/
+#headingDiv {
+	margin-top: 70px;
+}
+
+#headingDiv .section-heading{
+	display: inline-block;
+	font-size: 40px;
+	text-transform: uppercase;
+}
+
+#headingDiv .section-subheading{
+	display: inline-block;
+	position: relative;
+	top: -5px;
+	padding-left: 10px;
+	font-size: 25px;
+	font-weight: normal;
+	font-style: italic;
+}
+
+/************* # OF SONGS/COUNTRIES BTNS *************/
+#headingDiv div#numSongsBtn,
+#headingDiv div#countriesBtn {
+	padding-right: 5px;
+	margin-bottom: 8px;
+}
+
+#headingDiv button.btnName,
+#headingDiv button.btnName:focus,
+#headingDiv button.btnName:hover {
+	background-color: #222222;
+	color: white;
+}
+
+#headingDiv button.dropdown-toggle:hover,
+#headingDiv button.dropdown-toggle:focus,
+#headingDiv button.dropdown-toggle:active{
+	background-color: #fec503;
+}
+
+#headingDiv .btn-group li a {
+	color: white;
+}
+
+#headingDiv .btn-group li a:hover {
+	color: #222222;
+}
+
+#headingDiv .btn-group .dropdown-menu {
+	background-color: #222222;
+}
+
+#headingDiv .btn-group .dropdown-menu > .active > a,
+#headingDiv .btn-group .dropdown-menu > .active > a:hover,
+#headingDiv .btn-group .dropdown-menu > .active > a:focus {
+	background-color: #fec503;
+	color: white;
+}
+
+/************* SONG PLAYING INFO (yellow background) *************/
+#songPlaying {
+	font-style: italic;
+	font-size: 1.3em;
+	background-color: #fec503;
+	color: #222222;
+	padding: 5px;
+	padding-left: 8px;
+	margin-bottom: 5px;
+	border-radius: 3px;
+}
+
+#songPlaying .playPauseGlyph {
+	position: relative;
+	top: 3px;
+	padding-right: 3px;
+}
+
+/************* SONG RESULTS TABLE *************/
+.songRow .position {
 	margin-top: 10px;
 	display: block;
 	border-radius: 100%;
@@ -158,70 +203,27 @@ body {
 	font-weight: bold;
 	color: #fec503;
 }
-
-/**********************************/
-
-#headingDiv {
-  margin-top: 70px;
-}
-
-.section-heading{
-	display: inline-block;
-	font-size: 40px;
-	text-transform: uppercase;
-}
-
-.section-subheading{
-	display: inline-block;
-	position: relative;
-	top: -5px;
-	padding-left: 10px;
-	font-size: 25px;
-	font-weight: normal;
-	font-style: italic;
-}
-
-#numSongsBtn,
-#countriesBtn {
-  padding-right: 5px;
-  margin-bottom: 8px;
-}
-
-
-/**********************************/
-
-#brandTitle {
-  display: block;
-}
-
-#playlistControls {
-  display: block;
-  padding-top: 10px;
-  padding-bottom: 5px;
-}
-
-#songPlaying {
-  font-style: italic;
-  font-size: 1.3em;
-  background-color: #fec503;
-  color: #222222;
-  padding: 5px;
-  padding-left: 8px;
-  margin-bottom: 5px;
-  border-radius: 3px;
-}
-
-.symbolGlyph {
-  position: relative;
-  top: 3px;
-  padding-right: 3px;
-}
-
-.song {
+.songRow .songName {
 	text-transform: uppercase;
 	font-weight: bolder;
 }
 
-.artist {
-	margin-bottom: 5px;	
+.songRow .artist {
+	margin-bottom: 5px;
+}
+
+.songRow .btnArtistBio {
+	background-color: #222222;
+	color: white;
+	outline: none;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+	border: none;
+}
+
+.songRow .btnArtistBio:hover,
+.songRow .btnArtistBio:focus,
+.songRow .btnArtistBio:active {
+	background-color: #fed136;
 }

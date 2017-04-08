@@ -3,136 +3,131 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Top Songs</title>
-
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
 	<link rel="stylesheet" href="css/style.css">
-
-	<script
-	  src="//code.jquery.com/jquery-3.1.1.min.js"
-	  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-	  crossorigin="anonymous"></script>
-
-	  <!-- Latest compiled and minified JavaScript -->
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
 </head>
 <body>
 
-<nav class="navbar navbar-custom navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span> 
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      	<div id="brandTitle">
-      		<a class="navbar-brand" href="#" id="navbarHome">Top Songs</a>
-      	</div>
-      	<div id="playlistControls">
-			<a id="prevPlaylist" class="resume btn btn-default btn-sm btn-custom2" role="button" href="#">
-				<span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
-			</a>
-			<a id="playPausePlaylist" class="firstStart btn btn-default btn-sm btn-custom2" role="button" href="#">
-				<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
-			</a>
-			<a id="mutePlaylist" class="btn btn-default btn-sm btn-custom2" role="button" href="#">
-				<span class="glyphicon glyphicon-volume-off" aria-hidden="true"></span>
-			</a>
-			<a id="nextPlaylist" class="resume btn btn-default btn-sm btn-custom2" role="button" href="#">
-				<span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
-			</a>
+	<nav class="navbar navbar-custom navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<!-- Nav Bar: toggle for mobile, Brand, Playlist controls -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> 
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<div id="brandTitle">
+					<a class="navbar-brand" href="#">Top Songs</a>
+				</div>
+				<div id="playlistControls">
+					<a id="prevSong" class="resume btn btn-default btn-sm" role="button" href="#">
+						<span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+					</a>
+					<a id="playPauseSong" class="firstStart btn btn-default btn-sm" role="button" href="#">
+						<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+					</a>
+					<a id="muteSong" class="btn btn-default btn-sm" role="button" href="#">
+						<span class="glyphicon glyphicon-volume-off" aria-hidden="true"></span>
+					</a>
+					<a id="nextSong" class="resume btn btn-default btn-sm" role="button" href="#">
+						<span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
+					</a>
+				</div>
+			</div> <!-- /.navbar-header -->
+
+			<!-- Navbar links and Other dropdown-->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li class="active"><a class="category" id="all" data-genre="0" href="#">All</a></li>
+					<li><a href="#" class="category" id="pop" data-genre="14">Pop</a></li>
+					<li><a href="#" class="category" id="rock" data-genre="21">Rock</a></li>
+					<li><a href="#" class="category" id="country" data-genre="6">Country</a></li>
+					<li><a href="#" class="category" id="latino" data-genre="12">Latino</a></li>
+
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Other <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#" class="subCategory" id="alternative" data-genre="20">Alternative</a></li>
+							<li><a href="#" class="subCategory" id="classical" data-genre="5">Classical</a></li>
+							<li><a href="#" class="subCategory" id="jazz" data-genre="11">Jazz</a></li>
+							<li><a href="#" class="subCategory" id="rb-soul" data-genre="15">R&amp;B/Soul</a></li>
+							<li><a href="#" class="subCategory" id="world" data-genre="19">World</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+	</nav>
+
+	<div class="container-fluid">
+		<div id="headingDiv">
+			<h2 class="section-heading" id="categoryHeading"></h2>
+			<h3 class="section-subheading" id="categorySubheading"></h3>
+			
+			<br>
+			<!-- # of Songs Selection Button -->
+			<div class="btn-group" id="numSongsBtn">
+				<button type="button" class="btnName btn btn-default"># of Songs</button>
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span class="caret"></span>
+					<span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<ul class="dropdown-menu">
+					<li class="active"><a class="numSongs" href="#">5</a></li>
+					<li><a class="numSongs" href="#">10</a></li>
+					<li><a class="numSongs" href="#">15</a></li>
+					<li><a class="numSongs" href="#">20</a></li>
+					<li><a class="numSongs" href="#">25</a></li>
+				</ul>
+			</div>
+
+			<!-- Country Selection Button -->
+			<div class="btn-group" id="countriesBtn">
+				<button type="button" class="btnName btn btn-default">Country</button>
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span class="caret"></span>
+					<span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<ul class="dropdown-menu">
+					<li class="active"><a data-country="us" class="countries" href="#">US</a></li>
+					<li><a data-country="au" class="countries" href="#">Australia</a></li>
+					<li><a data-country="fr" class="countries" href="#">France</a></li>
+					<li><a data-country="de" class="countries" href="#">Germany</a></li>
+					<li><a data-country="gb" class="countries" href="#">Great Britain</a></li>
+					<li><a data-country="id" class="countries" href="#">Indonesia</a></li>
+					<li><a data-country="it" class="countries" href="#">Italy</a></li>
+					<li><a data-country="lb" class="countries" href="#">Lebanon</a></li>
+					<li><a data-country="mx" class="countries" href="#">Mexico</a></li>
+					<li><a data-country="vn" class="countries" href="#">Vietnam</a></li>
+				</ul>
+			</div>
 		</div>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a class="category" id="all" data-genre="0" href="#">All</a></li>
-        <li><a href="#" class="category" id="pop" data-genre="14">Pop</a></li>
-        <li><a href="#" class="category" id="rock" data-genre="21">Rock</a></li>
-        <li><a href="#" class="category" id="country" data-genre="6">Country</a></li>
-        <li><a href="#" class="category" id="latino" data-genre="12">Latino</a></li>
-
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Other <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-			<li><a href="#" class="category" id="alternative" data-genre="20">Alternative</a></li>
-			<li><a href="#" class="category" id="classical" data-genre="5">Classical</a></li>
-			<li><a href="#" class="category" id="hipHop" data-genre="11">Jazz</a></li>
-			<li><a href="#" class="category" id="rb-soul" data-genre="15">R&amp;B/Soul</a></li>
-			<li><a href="#" class="category" id="hipHop" data-genre="19">World</a></li>
-          </ul>
-        </li>       
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-
-<div class="container-fluid first">
-	<div id="headingDiv">
-		<h2 class="section-heading" id="categoryHeading"></h2>
-		<h3 class="section-subheading" id="categorySubheading"></h3>
 		
-		<br>
-		<!-- Split button -->
-		<div class="btn-group" id="numSongsBtn">
-		  <button type="button" class="btnSelect btn btn-default"># of Songs</button>
-		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		    <span class="caret"></span>
-		    <span class="sr-only">Toggle Dropdown</span>
-		  </button>
-		  <ul class="dropdown-menu">
-		    <li class="active"><a class="numSongs" href="#">5</a></li>
-		    <li><a class="numSongs" href="#">10</a></li>
-		    <li><a class="numSongs" href="#">15</a></li>
-		    <li><a class="numSongs" href="#">20</a></li>
-		    <li><a class="numSongs" href="#">25</a></li>
-		  </ul>
+		<!--Info about the song playing-->
+		<div id="songPlaying">
 		</div>
 
-		<div class="btn-group" id="countriesBtn">
-		  <button type="button" class="btnSelect btn btn-default">Country</button>
-		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		    <span class="caret"></span>
-		    <span class="sr-only">Toggle Dropdown</span>
-		  </button>
-		  <ul class="dropdown-menu">
-			<li class="active"><a data-country="us" class="countries" href="#">US</a></li>
-			<li><a data-country="au" class="countries" href="#">Australia</a></li>
-			<li><a data-country="fr" class="countries" href="#">France</a></li>
-			<li><a data-country="de" class="countries" href="#">Germany</a></li>
-			<li><a data-country="gb" class="countries" href="#">Great Britain</a></li>
-			<li><a data-country="id" class="countries" href="#">Indonesia</a></li>
-			<li><a data-country="it" class="countries" href="#">Italy</a></li>
-			<li><a data-country="lb" class="countries" href="#">Lebanon</a></li>
-			<li><a data-country="mx" class="countries" href="#">Mexico</a></li>
-			<li><a data-country="vn" class="countries" href="#">Vietnam</a></li>
-		  </ul>
-		</div>
+		<!--Song data & YouTube videos displayed-->
+		<table class="table table-striped table-hover table-responsive table-sm"> 
+			<thead> 
+				<tr> 
+					<th class="col-xs-1">Position</th>
+					<th class="col-xs-2">Song / Artist</th>
+					<th class="col-xs-9">Video</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
 	</div>
-	
-	<div id="songPlaying">
-    </div>
 
-	<table class="table table-striped table-hover table-responsive table-sm"> 
-		<thead> 
-			<tr> 
-				<th class="col-xs-1">Position</th>
-				<th class="col-xs-2">Song / Artist</th> 
-				<th class="col-xs-9">Video</th>
-			</tr> 
-		</thead> 
-		<tbody>  
-		</tbody> 
-	</table>
-</div>
-
-<script src="//www.youtube.com/iframe_api"></script>
-
-<script src="js/script.js"></script>
+	<script src="//code.jquery.com/jquery-3.1.1.min.js"
+		integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+		crossorigin="anonymous"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="//www.youtube.com/iframe_api"></script>
+	<script src="js/script.js"></script>
 </body>
 </html>
